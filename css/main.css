@@ -118,6 +118,7 @@
   background-size: 1.2rem auto;
   border-radius: 100%;
   cursor: pointer;
+  box-shadow: 0px 0.8rem 1.5rem 0.1rem hsl(174deg, 86%, 45%);
 }
 * body main .card-container .slider-container .slider-wrapper .slider::-webkit-slider-thumb:hover {
   background-color: hsl(174deg, 77%, 80%);
