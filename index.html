@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./css/main.css">
+
+  <title>Frontend Mentor | Interactive pricing component</title>
+
+</head>
+<body>
+  <main>
+    <div class="header">
+      <h1>Simple, traffic-based pricing</h1>
+      <p>Sign-up for our 30-day trial. No credit card required.</p>
+    </div>
+
+    <div class="card-container">
+      <div class="slider-container">
+        <div class="page-views">
+          <p id="page-views">100k pageviews</p>
+        </div>
+        <div class="pricing">
+          <span class="bold" id="price">$16.00</span><p> / month</p>
+        </div>
+        <div class="slider-wrapper">
+          <input type="range" min="1" max="100" value="49" class="slider" id="slider">
+        </div>
+        <div class="slider-button-wrapper">
+          <p>Monthly Billing</p>
+          <div class="slider-button">
+            <input id="status" type="checkbox" name="status">
+            <label for="status">
+              <div class="status-switch" data-unchecked="Off" data-checked="on"></div>
+            </label>
+          </div>
+          <p>Yearly Billing </p>
+        </div>
+      </div>
+      <div class="description-container">
+        <div class="description">
+          <p>Unlimited websites</p>
+          <p>100% data ownership</p>
+          <p>Email reports</p>
+        </div>
+
+        <button>Start my trial</button>
+      </div>
+    </div>
+  </main>
+</body>
+
+<script>
+  const slider = document.getElementById('slider');
+  const page_views = document.getElementById('page-views');
+  const price = document.getElementById('price');
+  const slider_button = document.getElementById('status');
+
+  function handleInputChange(e) {
+    let target = slider;
+
+    const min = target.min;
+    const max = target.max;
+    const value = target.value;
+    const status = slider_button.checked;
+
+    const discount = !status ? 1 : 0.75;
+    
+    target.style.backgroundSize = (value - min) * 100 / (max-min) + '% 100%'
+
+    let percent = Math.round(value / (max - min) * 100);
+    
+    if(percent >= 90) {
+      page_views.innerText = "1M pageviews";
+      price.innerHTML = "$" + (36 * discount).toFixed(2);
+    } else if(percent >= 50) {
+      page_views.innerText = "500k pageviews";
+      price.innerHTML = "$" + (24 * discount).toFixed(2);
+    } else if(percent >= 10) {
+      page_views.innerText = "100k pageviews";
+      price.innerHTML = "$" + (16 * discount).toFixed(2);
+    } else if(percent >= 5) {
+      page_views.innerText = "50k pageviews";
+      price.innerHTML = "$" + (12 * discount).toFixed(2);
+    } else if(percent >= 1) {
+      page_views.innerText = "10k pageviews";
+      price.innerHTML = "$" + (8 * discount).toFixed(2);
+    }
+    
+  }
+
+  slider.addEventListener('input', handleInputChange);
+  slider_button.addEventListener('input', handleInputChange);
+
+// - 10K pageviews / $8 per month
+// - 50K pageviews / $12 per month
+// - 100K pageviews / $16 per month
+// - 500k pageviews / $24 per month
+// - 1M pageviews / $36 per month
+</script>
+</html>
